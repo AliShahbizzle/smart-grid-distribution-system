@@ -1,0 +1,22 @@
+
+.description-box {
+    background-color: darkgray;
+    border-radius: 25px;
+}
+
+.print-homes-form {
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.home-details {
+    display: grid;
+    grid-template-rows: auto auto;
+    justify-content: left;
+    align-items: left;
+    background-color: lightgrey;
+}

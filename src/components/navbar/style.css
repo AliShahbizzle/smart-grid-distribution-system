@@ -1,0 +1,256 @@
+body{
+	background-color:#f4f4f4;
+	color:#555555;
+	font-family: "Poppins", sans-serif;
+	font-size:16px;
+	font-weight:normal;
+	line-height: 1.6em;
+	margin:0;
+}
+
+.nav {
+	display: flex;
+}
+
+.main-title{
+	text-align:center;
+	color:white;
+	background-color:black;
+	padding:10px;
+}
+
+.categories ul{
+	padding:5px;
+}
+
+.categories li{
+	margin-bottom:20px;
+	list-style:none;
+	border-bottom:dotted 1px #333;
+}
+
+.tableHeader {
+	display: flex;
+	justify-content: space-between;
+}
+
+h1{
+	color:black;
+	font-weight: bold;
+}
+.container{
+	margin:auto;
+}
+
+a{
+	text-decoration: none;
+	color:#000;
+}
+
+a:hover{
+	color:blue;
+}
+
+a:active{
+	color: red;
+}
+
+
+.button{
+	text-align:center;
+	border: 0;
+}
+
+.button-unhighlighted{
+	font-size:10px;
+	font-weight:500px;
+	height:30px;
+	width:35px;
+	cursor:pointer;
+	border: 2px solid grey;
+	background-color: black;
+	color:white;
+}
+
+.button-highlighted{
+	font-size:10px;
+	font-weight:500px;
+	height:30px;
+	width:35px;
+	cursor:pointer;
+	border: 2px solid grey;
+	background-color: yellow;
+	color:black;
+}
+
+.button button:hover{
+	color:red;
+	background-color:black;
+}
+
+.button button:active{
+	color:black;
+	background-color:yellow;
+}
+
+
+#menu-text{
+	color:white;
+	background-color:grey;
+	float:left;
+	width:30%;
+}
+
+table, td, th{
+	text-align:center;
+	margin: 0px auto;
+	border: 1px solid black;
+	border-collapse: collapse;
+	font-size: 8px;
+}
+
+th{
+	font-weight:bold;
+	background-color: black;
+	color:white;
+	border: 1px solid white;
+	min-width:80px;
+}
+
+tr:nth-child(even){
+	background: #CCC;
+}
+
+tr:nth-child(ddd){
+	background: #FFF;
+}
+
+.ReactTable .rt-tr .action {
+    transition: all .2s ease;
+    text-align: center;
+    color: red;
+    transform: scale(0);
+}
+
+.ReactTable .rt-tr:hover .action {
+    transform: scale(1.3);
+}
+
+.ReactTable .rt-tr:hover .rt-td {
+    background: #f4f4f4;
+}
+
+.ReactTable .rt-th {
+	background-color: white;
+	color: black;
+	font-size: x-small;
+	font-weight: bold;
+	overflow-wrap: break-word;
+}
+
+.ReactTable .rt-tr {
+	font-size: x-small;
+}
+
+.box-1{
+	font-size:0px;
+	position: static;
+	min-width: 860px;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 0;
+}
+
+/*Modal Popup */
+.bg-modal {
+	display: none;
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: fixed;
+	z-index: 1;
+
+}
+
+.modal-content {
+	max-width: 70%;
+	position: initial;
+	margin:10% auto;
+	background-color: white;
+	padding: 10px;
+}
+
+.close-Btn{
+	color: #ccc;
+	float: right;
+	font-size: 30px;
+}
+
+.close-Btn:hover,.close-Btn:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.bg-modal-outage {
+	display: none;
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: fixed;
+	z-index: 1;
+
+}
+
+.modal-content-outage {
+	width: 70%;
+	margin:10% auto;
+	background-color: white;
+}
+
+.close-Btn-outage{
+	color: #ccc;
+	float: right;
+	font-size: 30px;
+}
+
+.close-Btn-outage:hover,.close-Btn:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.search {
+	padding: 5px;
+}
+
+.search-form {
+	display: flex;
+}
+
+.channel-detail {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.channel-detail-box p{
+	padding: 0px;
+	margin: 0px;
+}
+
+.nav-links li {
+	padding: 3px;
+}
