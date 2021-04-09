@@ -16,4 +16,31 @@
   border: none;
   border-radius: 5px;
   padding: 5px;
+  margin: 5px;
+}
+
+.gen-info{
+  color: black;
+  background-color: lightgrey;
+}
+
+.connected-peak-info{
+  color: white;
+  background-color: black;
+}
+.max-load-info{
+  color: black;
+  background-color: lightgrey;
+}
+.ev-load-info{
+  color: white;
+  background-color: black;
+}
+.trans-sizes-info{
+  color: black;
+  background-color: lightgrey;
+}
+.price{
+  color: white;
+  background-color: black;
 }

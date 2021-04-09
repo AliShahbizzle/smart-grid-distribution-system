@@ -7,6 +7,7 @@ import Results from "./components/results/Results";
 import CalculateTransformer from "./components/calculatetransformer/CalculateTransformer";
 import { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 
 class App extends Component {
   state = {
@@ -20,6 +21,9 @@ class App extends Component {
     winter_demand: 0,
     connectedPeakSummer: 0,
     connectedPeakWinter: 0,
+    EVDemand1: 0,
+    EVDemand2: 0,
+    numTransformers: 0,
     transformers: [
       {
         size: 10,
@@ -115,12 +119,12 @@ class App extends Component {
   }
 
   changePrice = (event) => {
+    event.preventDefault();
     let value = Number(event.target.value);
     let id = event.target.id
     let name = event.target.name;
     let newArr = [...this.state.transformers];
     newArr[id].price = value;
-    event.preventDefault();
     this.setState({ newArr }, function () {
       {
         console.log("Hello");
@@ -203,6 +207,9 @@ class App extends Component {
       0.54,
       0.54,
     ];
+    let EVDemand1;
+    let EVDemand2;
+    let numTransformers = 0
     let connectedPeakSummer = 0;
     let connectedPeakWinter = 0;
     let calculatedDivFactor;
@@ -300,20 +307,23 @@ class App extends Component {
         num_tier1 * 1.8 +
         num_tier2 * 7.2)
 
-
+    EVDemand1 = num_tier1 * 1.8
+    EVDemand2 = num_tier2 * 7.2
     summer_demand = connectedPeakSummer * calculatedDivFactor
     winter_demand = connectedPeakWinter * calculatedDivFactor
 
 
 
     this.setState({
+      EVDemand1: EVDemand1,
+      EVDemand2: EVDemand2,
       divFactor: calculatedDivFactor,
       connectedPeakSummer: connectedPeakSummer.toFixed(2),
       connectedPeakWinter: connectedPeakWinter.toFixed(2),
       summer_demand: summer_demand.toFixed(2),
       winter_demand: winter_demand.toFixed(2),
     });
-
+    
     console.log(this.state.transformers.map((transformer) => {
       console.log(transformer.summer140 - summer_demand)
       if (((transformer.summer140 - summer_demand) >= 0) && (transformer.winter160 - winter_demand >= 0)){
@@ -327,6 +337,12 @@ class App extends Component {
         return Math.ceil(winter_demand/transformer.winter160)
       }
     }))
+    let j;
+    let newNumTransformers = []
+    for (j=0; j < numTransformers.length; j++){
+      newNumTransformers[j] = numTransformers[j]
+    }
+
 
     if (summer_demand > 234 || winter_demand > 267) {
       if (Math.ceil(summer_demand / 234) > Math.ceil(winter_demand / 267)) {
@@ -336,30 +352,32 @@ class App extends Component {
       }
     } else if (summer_demand > 140 || winter_demand > 160) {
       transformer_size = 167;
+      price = price + this.state.transformers[7].price;
     } else if (summer_demand > 105 || winter_demand > 120) {
       transformer_size = 100;
-      price = price + 4000;
+      price = price + this.state.transformers[6].price;
     } else if (summer_demand > 70 || winter_demand > 80) {
       transformer_size = 75;
-      price = price + 3500;
+      price = price + this.state.transformers[5].price;
     } else if (summer_demand > 53 || winter_demand > 60) {
       transformer_size = 50;
-      price = price + 3000;
+      price = price + this.state.transformers[4].price;
     } else if (summer_demand > 35 || winter_demand > 40) {
       transformer_size = 37.5;
-      price = price + 2500;
+      price = price + this.state.transformers[3].price;
     } else if (summer_demand > 21 || winter_demand > 24) {
       transformer_size = 25;
-      price = price + 2000;
+      price = price + this.state.transformers[2].price;
     } else if (summer_demand > 14 || winter_demand > 16) {
       transformer_size = 15;
-      price = price + 1500;
+      price = price + this.state.transformers[1].price;
     } else {
       transformer_size = 10;
-      price = price + 1000;
+      price = price + this.state.transformers[0].price;
     }
-
+    console.log(newNumTransformers)
     this.setState({
+      numTransformers: newNumTransformers,
       transformer_size: transformer_size,
       transformer_size2: transformer_size2,
       numHomes: numHomes,
@@ -367,6 +385,7 @@ class App extends Component {
     });
 
     console.log("Transformer size is " + this.state.transformer_size);
+    console.log(this.state.numTransformers)
 
     console.log(this.state.transformers);
     console.log(totalSQFT / numHomes);
@@ -389,6 +408,8 @@ class App extends Component {
               changePrice={this.changePrice}
               />
               <CalculateTransformer
+                EVDemand1={this.state.EVDemand1}
+                EVDemand2={this.state.EVDemand2}
                 homes={this.state.homes}
                 divFactor={this.state.divFactor}
                 connectedPeakSummer={this.state.connectedPeakSummer}

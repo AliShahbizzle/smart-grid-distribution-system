@@ -4,7 +4,7 @@
 
 .comm-info {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto auto auto auto;
     width: auto;
     font-size: small;
     background-color: lightgrey;
