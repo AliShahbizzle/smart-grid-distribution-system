@@ -1,8 +1,13 @@
+.calculate-trans {
+    text-align: center;
+}
+
 .comm-info {
     display: grid;
     grid-template-columns: auto auto;
     width: auto;
     font-size: small;
+    background-color: lightgrey;
 
 }
 
@@ -11,10 +16,3 @@
     text-align: center;
 }
 
-.del-btn {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
-}

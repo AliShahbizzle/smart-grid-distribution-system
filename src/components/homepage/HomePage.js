@@ -21,17 +21,17 @@ export class HomePage extends Component {
             <a href="#" className="box">
                 <i className="fas fa-chart-pie fa-4x"></i>
                 <h3>Analytics</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                <p>View analystics</p>
             </a>
             <a href="/data/SLAR" className="box">
                 <i className="fas fa-table fa-4x"></i>
                 <h3>Data</h3>
-                <p>View data.</p>
+                <p>View data</p>
             </a>
             <a href="/admin" className="box">
                 <i className="fas fa-users fa-4x"></i>
                 <h3>Admin</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <p>Access administrator area</p>
             </a>
             <a href="#" className="box">
                 <i className="fas fa-question-circle fa-4x"></i>

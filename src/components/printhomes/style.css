@@ -1,3 +1,8 @@
+.print-homes-container {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
 
 .description-box {
     background-color: darkgray;
@@ -19,4 +24,14 @@
     justify-content: left;
     align-items: left;
     background-color: lightgrey;
+}
+
+.cost {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+}
+
+.print-homes-div {
+    text-align: center;
 }

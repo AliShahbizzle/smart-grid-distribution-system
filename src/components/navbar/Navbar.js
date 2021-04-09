@@ -13,8 +13,6 @@ export class Navbar extends Component{
                     <ReactBootStrap.Nav.Link href="/transformer">Transformer Sizing</ReactBootStrap.Nav.Link>
                     </ReactBootStrap.Nav>
                     <ReactBootStrap.Form inline>
-                    <ReactBootStrap.FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <ReactBootStrap.Button variant="outline-info">Search</ReactBootStrap.Button>
                     </ReactBootStrap.Form>
                 </ReactBootStrap.Navbar>
             

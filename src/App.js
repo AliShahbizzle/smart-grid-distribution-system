@@ -11,34 +11,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 class App extends Component {
   state = {
     homes: [{ homeID: 1, sqft: 0, heating: "electric", EV: "none" }],
-    divFactor: [
-      1,
-      0.9,
-      0.75,
-      0.65,
-      0.63,
-      0.62,
-      0.61,
-      0.61,
-      0.61,
-      0.61,
-      0.6,
-      0.59,
-      0.58,
-      0.58,
-      0.57,
-      0.57,
-      0.56,
-      0.54,
-      0.54,
-      0.54,
-    ],
+    divFactor: 0, 
     transformer_size: "0",
     transformer_size2: "0",
     price: "0",
     numHomes: "0",
     summer_demand: 0,
     winter_demand: 0,
+    connectedPeakSummer: 0,
+    connectedPeakWinter: 0,
     transformers: [
       {
         size: 10,
@@ -126,6 +107,28 @@ class App extends Component {
     console.log(this.state.homes);
   };
 
+  clearAll = (e) => {
+    e.preventDefault();
+    this.setState({
+      homes: []
+    });
+  }
+
+  changePrice = (event) => {
+    let value = Number(event.target.value);
+    let id = event.target.id
+    let name = event.target.name;
+    let newArr = [...this.state.transformers];
+    newArr[id].price = value;
+    event.preventDefault();
+    this.setState({ newArr }, function () {
+      {
+        console.log("Hello");
+        console.log(this.state);
+      }
+    });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ [event.target.name[1]]: event.target.value });
@@ -178,7 +181,7 @@ class App extends Component {
   };
 
   calculateTransformer = () => {
-    let divFactor = [
+    let divFactors = [
       1,
       0.9,
       0.75,
@@ -200,6 +203,9 @@ class App extends Component {
       0.54,
       0.54,
     ];
+    let connectedPeakSummer = 0;
+    let connectedPeakWinter = 0;
+    let calculatedDivFactor;
     let i;
     let num_electric = 0;
     let num_gas = 0;
@@ -275,30 +281,52 @@ class App extends Component {
       winter_gas = 11;
     }
 
-    summer_demand =
+    if (numHomes > 20){
+      calculatedDivFactor = 0.54
+    } 
+    else {
+      calculatedDivFactor = divFactors[numHomes - 1]
+    }
+
+    connectedPeakSummer=
       (summer_electric * num_electric +
         summer_gas * num_gas +
         num_tier1 * 1.8 +
-        num_tier2 * 7.2) *
-      divFactor[numHomes - 1];
-    winter_demand =
+        num_tier2 * 7.2)
+
+    connectedPeakWinter =
       (winter_electric * num_electric +
         winter_gas * num_gas +
         num_tier1 * 1.8 +
-        num_tier2 * 7.2) *
-      divFactor[numHomes - 1];
+        num_tier2 * 7.2)
+
+
+    summer_demand = connectedPeakSummer * calculatedDivFactor
+    winter_demand = connectedPeakWinter * calculatedDivFactor
+
+
 
     this.setState({
+      divFactor: calculatedDivFactor,
+      connectedPeakSummer: connectedPeakSummer.toFixed(2),
+      connectedPeakWinter: connectedPeakWinter.toFixed(2),
       summer_demand: summer_demand.toFixed(2),
       winter_demand: winter_demand.toFixed(2),
     });
 
-    if (summer_demand > 200 || winter_demand > 220) {
-      summer_demand = summer_demand % 200;
-      winter_demand = winter_demand % 200;
-      transformer_size2 = 167;
-      price = 4500;
-    }
+    console.log(this.state.transformers.map((transformer) => {
+      console.log(transformer.summer140 - summer_demand)
+      if (((transformer.summer140 - summer_demand) >= 0) && (transformer.winter160 - winter_demand >= 0)){
+          return 1
+
+      }
+      else if ((transformer.summer140 - summer_demand) <= (transformer.winter160 - winter_demand)){
+        return Math.ceil(summer_demand/transformer.summer140)
+      }
+      else if ((transformer.summer140 - summer_demand) > (transformer.winter160 - winter_demand)){
+        return Math.ceil(winter_demand/transformer.winter160)
+      }
+    }))
 
     if (summer_demand > 234 || winter_demand > 267) {
       if (Math.ceil(summer_demand / 234) > Math.ceil(winter_demand / 267)) {
@@ -340,7 +368,7 @@ class App extends Component {
 
     console.log("Transformer size is " + this.state.transformer_size);
 
-    console.log(totalSQFT);
+    console.log(this.state.transformers);
     console.log(totalSQFT / numHomes);
     console.log("there are " + num_tier1 + " homes");
   };
@@ -355,9 +383,16 @@ class App extends Component {
               <HomePage />
             </Route>
             <Route exact path="/transformer">
-              <PrintHomes addHomes={this.addHomes} />
+              <PrintHomes 
+              addHomes={this.addHomes}
+              transformers={this.state.transformers}
+              changePrice={this.changePrice}
+              />
               <CalculateTransformer
                 homes={this.state.homes}
+                divFactor={this.state.divFactor}
+                connectedPeakSummer={this.state.connectedPeakSummer}
+                connectedPeakWinter={this.state.connectedPeakWinter}
                 summer_demand={this.state.summer_demand}
                 winter_demand={this.state.winter_demand}
                 numHomes={this.state.numHomes}
@@ -370,6 +405,7 @@ class App extends Component {
                 handleChangeHeating={this.handleChangeHeating}
                 handleChangeEV={this.handleChangeEV}
                 removeHome={this.removeHome}
+                clearAll={this.clearAll}
               />
             </Route>
           </Switch>

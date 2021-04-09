@@ -6,10 +6,19 @@ export class CalculateTransformer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="calculate-trans">
         <div>
             <h3>Community Information: </h3>
           <div className="comm-info">
+            <h4>
+              Diversity Factor: {this.props.divFactor}
+            </h4>
+            <h4>
+              Connected Peak Summer: {this.props.connectedPeakSummer} kW
+            </h4>
+            <h4>
+              Connected Peak Winter: {this.props.connectedPeakWinter} kW
+            </h4>
             <h4>
               Summer Demand: {this.props.summer_demand} kW
             </h4>
@@ -30,11 +39,11 @@ export class CalculateTransformer extends Component {
               Price: ${this.props.price}
             </h4>
           </div>
-          <button onClick={this.props.calculateTransformer}>Calculate</button>
+          <button className="primary-btn" onClick={this.props.calculateTransformer}>Calculate</button>
         </div>
         <div>
         <h5>Please modify parameters for homes:</h5>
-        <button onClick={this.props.clearAll}>Clear All</button>
+        <button className="del-btn" onClick={this.props.clearAll}>Clear All</button>
         </div>
         <div className="calc-trans">
           <form onSubmit={this.props.handleSubmit} className="search-form">
